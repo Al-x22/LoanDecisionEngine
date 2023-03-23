@@ -1,6 +1,6 @@
 package com.example.loandecisionengine.entity;
 
-import com.example.loandecisionengine.service.GenerateLoanResult;
+import com.example.loandecisionengine.service.GenerateLoanApplicationResult;
 
 public class LoanApplication {
 
