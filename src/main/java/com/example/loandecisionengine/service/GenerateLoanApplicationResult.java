@@ -5,9 +5,9 @@ import com.example.loandecisionengine.entity.LoanApplicationResult;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GenerateLoanResult {
+public class GenerateLoanApplicationResult {
 
-    public LoanApplicationResult generateLoanResult(LoanApplication loanApplication){
+    public LoanApplicationResult generateLoanApplicationResult(LoanApplication loanApplication){
         // Add proper decision Engine
         return new LoanApplicationResult("positive", 20000);
     }
