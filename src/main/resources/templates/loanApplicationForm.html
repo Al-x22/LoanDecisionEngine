@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Loan Application Form</title>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
-<body>
+<body id="bodyId">
     <h1>Loan Application</h1>
-    <form action="#" th:action="@{/loan}" th:object="${loanApplication}" method="post">
-        <div>
-            <label for="personalCode">Personal Code:</label>
-            <input type="text" id="personalCode" name="personalCode" size="11" pattern="[0-9]" th:field="*{personalCode}" />
-        </div>
-        <div>
-            <label for="loanAmount">Loan Amount:</label>
-            <input type="number" id="loanAmount" name="loanAmount" min="2000" max="10000" th:field="*{loanAmount}" />
-        </div>
-        <div>
-            <label for="loanPeriod">Loan Period (months):</label>
-            <input type="number" id="loanPeriod" name="loanPeriod" min="12" max="60" th:field="*{loanPeriod}" />
-        </div>
-        <div>
-            <input type="submit" value="Apply" />
-        </div>
-        <div th:if="${loanApplicationResult}">
+    <div class="container">
+        <form class="form" action="#" th:action="@{/loan}" th:object="${loanApplication}" method="post">
+            <div class="input-container">
+                <div class="personal-code wrapper">
+                    <label for="personalCode">Personal Code:</label>
+                    <input type="text" id="personalCode" name="personalCode" size="11" pattern="[0-9]{11}" th:field="*{personalCode}" />
+                </div>
+                <div class="loanAmount wrapper">
+                    <label for="loanAmount">Loan Amount:</label>
+                </div>
+                <div class="slide-container-loan-amount wrapper">
+                    <input type="number" id="loanAmount" value="10" name="loanAmount" min="2000" max="10000" th:field="*{loanAmount}"/>
+                    <input type="range" min="2000" max="10000" value="50" class="slider" id="myRange1" oninput="getValueFromSliderLoanAmount(this.value)">
+                </div>
+                <div class="loanPeriod wrapper">
+                    <label for="loanPeriod">Loan Period (months):</label>
+                </div>
+                <div class="slide-container-loan-period wrapper">
+                    <input type="number" id="loanPeriod" name="loanPeriod" min="12" max="60" th:field="*{loanPeriod}"/>
+                    <input type="range" min="12" max="60" class="slider" id="myRange2" oninput="getValueFromSliderLoanPeriod(this.value)">
+                </div>
+                <div class="submit wrapper">
+                    <input type="submit" value="Apply" />
+                </div>
+            </div>
+        </form>
+        <div class="result" th:if="${loanApplicationResult}">
             <h2>Decision: <span th:text="${loanApplicationResult.decision} ? 'Positive' : 'Negative'"></span></h2>
             <h2>Motive: <span th:text="${loanApplicationResult.motiveMsg}"></span></h2>
             <div th:if="${loanApplicationResult.applicationForm}">
@@ -33,11 +45,11 @@
                 </h2>
 
                 <div th:if="${loanApplicationResult.finalLoanPeriod != loanApplicationResult.applicationForm.loanPeriod}">
-                <h2>New Amount: <span th:text="${loanApplicationResult.finalAmount}"></span></h2>
-                <h2>New Loan Period: <span th:text="${loanApplicationResult.finalLoanPeriod}"></span></h2>
+                    <h2>New Amount: <span th:text="${loanApplicationResult.finalAmount}"></span></h2>
+                    <h2>New Loan Period: <span th:text="${loanApplicationResult.finalLoanPeriod}"></span></h2>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 </body>
 </html>
