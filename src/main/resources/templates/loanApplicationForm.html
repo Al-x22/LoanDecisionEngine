@@ -5,6 +5,29 @@
     <title>Loan Application Form</title>
 </head>
 <body>
-Hello World.
+    <h1>Loan Application</h1>
+    <form action="#" th:action="@{/loan}" th:object="${loanApplication}" method="post">
+        <div>
+            <label for="personalCode">Personal Code:</label>
+            <input type="text" id="personalCode" name="personalCode" th:field="*{personalCode}" />
+        </div>
+        <div>
+            <label for="loanAmount">Loan Amount:</label>
+            <input type="number" id="loanAmount" name="loanAmount" min="2000" max="10000" step="100" th:field="*{loanAmount}" />
+        </div>
+        <div>
+            <label for="loanPeriod">Loan Period (months):</label>
+            <input type="number" id="loanPeriod" name="loanPeriod" min="12" max="60" th:field="*{loanPeriod}" />
+        </div>
+        <div>
+            <input type="submit" value="Apply" />
+        </div>
+        <div th:if="${loanApplicationResult}">
+            <h2>Decision: <span th:text="${loanApplicationResult.decision}"></span></h2>
+            <h2>Amount in original Months: <span th:text="${loanApplicationResult.possibleAmountInOriginalMonths}"></span></h2>
+            <h2>New Amount: <span th:text="${loanApplicationResult.finalAmount}"></span></h2>
+            <h2>New Months: <span th:text="${loanApplicationResult.finalMonths}"></span></h2>
+        </div>
+    </form>
 </body>
 </html>
