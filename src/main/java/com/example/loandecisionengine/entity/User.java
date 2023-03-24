@@ -25,5 +25,10 @@ public class User {
         this.segment = segment;
     }
 
-    // TODO: Implement segment to credit modifier
+    public double getCreditModifier(){
+        if (segment == 1) return 100;
+        else if (segment == 2) return 300;
+        else if (segment == 3) return 1000;
+        else return -1;
+    }
 }
