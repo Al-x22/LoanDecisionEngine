@@ -15,7 +15,7 @@ public class LoanApplicationController {
 
     @GetMapping("/loan")
     public String showForm(Model model) {
-        model.addAttribute("loanApplication", new LoanApplication());
+        model.addAttribute("loanApplication", new LoanApplication(49002010976L,2000,12));
         return "loanApplicationForm";
     }
     @PostMapping("/loan")
