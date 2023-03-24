@@ -18,25 +18,28 @@ public class GenerateLoanApplicationResult {
         User user = new UserExamples().getUserByPersonalCode(personalCode);
 
         if (user == null) {
-            return new LoanApplicationResult(false);
+            return new LoanApplicationResult(false, "Non existent Personal Code.");
         }
         if (user.getSegment() == 0) {
-            return new LoanApplicationResult(false);
+            return new LoanApplicationResult(false, "User is in debt.");
         }
 
         double creditModifier = user.getCreditModifier();
         double originalMaxLoanAmount = (creditModifier * loanPeriod);
         double maxLoanAmount = originalMaxLoanAmount;
+
         while (maxLoanAmount < loanAmount) {
             if (loanPeriod >= 64) {
-                return new LoanApplicationResult(false, 0);
+                return new LoanApplicationResult(false,
+                        0, "No acceptable loan can be generated.");
             }
             loanPeriod++;
             maxLoanAmount = (creditModifier * loanPeriod);
         }
-
+        originalMaxLoanAmount = (originalMaxLoanAmount < 2000) ? 0 : originalMaxLoanAmount;
         maxLoanAmount = (Math.min(10000, maxLoanAmount));
 
-        return new LoanApplicationResult(true,(int) originalMaxLoanAmount, (int) maxLoanAmount, loanPeriod, loanApplication);
+        return new LoanApplicationResult(true,(int) originalMaxLoanAmount, (int) maxLoanAmount, loanPeriod,
+                "Accepted Loan", loanApplication);
     }
 }
