@@ -40,6 +40,6 @@ public class GenerateLoanApplicationResult {
         maxLoanAmount = (Math.min(10000, maxLoanAmount));
 
         return new LoanApplicationResult(true,(int) originalMaxLoanAmount, (int) maxLoanAmount, loanPeriod,
-                "Accepted Loan", loanApplication);
+                "Suitable Loan Found", loanApplication);
     }
 }
