@@ -7,6 +7,7 @@ import java.util.List;
 
 public class UserExamples {
 
+    // Hardcoded Users
     public UserExamples() {
     }
 

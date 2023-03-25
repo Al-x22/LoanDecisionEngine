@@ -9,17 +9,20 @@ public class LoanApplicationResult {
     private String motiveMsg;
     private LoanApplication applicationForm;
 
+    // For when there is an error, only return the result with the negative decision and the motive
     public LoanApplicationResult(boolean decision, String motiveMsg) {
         this.decision = decision;
         this.motiveMsg = motiveMsg;
     }
 
+    // For when the loan requested is directly accepted
     public LoanApplicationResult(boolean decision, int possibleAmountInOriginalMonths, String motiveMsg) {
         this.decision = decision;
         this.possibleAmountInOriginalMonths = possibleAmountInOriginalMonths;
         this.motiveMsg = motiveMsg;
     }
 
+    // For when the loan requested is not directly accepted, but another suitable one is found
     public LoanApplicationResult(boolean decision, int possibleAmountInOriginalMonths,
                                  int finalAmount, int finalLoanPeriod, String motiveMsg, LoanApplication applicationForm) {
         this.decision = decision;
@@ -62,9 +65,13 @@ public class LoanApplicationResult {
         this.finalLoanPeriod = finalLoanPeriod;
     }
 
-    public String getMotiveMsg() { return motiveMsg;}
+    public String getMotiveMsg() {
+        return motiveMsg;
+    }
 
-    public void setMotiveMsg(String motiveMsg) {this.motiveMsg = motiveMsg;}
+    public void setMotiveMsg(String motiveMsg) {
+        this.motiveMsg = motiveMsg;
+    }
 
     public LoanApplication getApplicationForm() {
         return applicationForm;

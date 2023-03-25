@@ -24,6 +24,13 @@ public class GenerateLoanApplicationResult {
             return new LoanApplicationResult(false, "User is in debt.");
         }
 
+        // By ordering the given algorithm, it is possible to obtain the max amount of money
+        // that can be given in the loanPeriod. This is possible because the max amount of money that can be obtained
+        // is given when the credit score is 1, or the closest to 1 as possible from positive numbers.
+        // By replacing credit score for 1 in the algorithm and solving for the loanAmount we will get the maximum loan amount.
+
+        // If the max loan amount surpasses the requested amount, the max loan is returned with positive decision.
+        // Else loan Period increases by 1 until it finds a suitable maxLoan bigger that requested Loan.
         double creditModifier = user.getCreditModifier();
         double originalMaxLoanAmount = (creditModifier * loanPeriod);
         double maxLoanAmount = originalMaxLoanAmount;
@@ -37,9 +44,10 @@ public class GenerateLoanApplicationResult {
             maxLoanAmount = (creditModifier * loanPeriod);
         }
         originalMaxLoanAmount = (originalMaxLoanAmount < 2000) ? 0 : originalMaxLoanAmount;
+        originalMaxLoanAmount = (Math.min(10000, originalMaxLoanAmount));
         maxLoanAmount = (Math.min(10000, maxLoanAmount));
 
-        return new LoanApplicationResult(true,(int) originalMaxLoanAmount, (int) maxLoanAmount, loanPeriod,
+        return new LoanApplicationResult(true, (int) originalMaxLoanAmount, (int) maxLoanAmount, loanPeriod,
                 "Suitable Loan Found", loanApplication);
     }
 }

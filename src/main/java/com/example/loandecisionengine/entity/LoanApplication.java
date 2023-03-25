@@ -1,17 +1,13 @@
 package com.example.loandecisionengine.entity;
 
-import com.example.loandecisionengine.service.GenerateLoanApplicationResult;
-
 public class LoanApplication {
-
-    // LoanApplication needs a method in which it Will call GenerateLoanResult giving an output with the
-    // result
 
     private long personalCode;
     private int loanAmount;
     private int loanPeriod;
 
-    public LoanApplication() {}
+    public LoanApplication() {
+    }
 
     public LoanApplication(long personalCode, int loanAmount, int loanPeriod) {
         this.personalCode = personalCode;

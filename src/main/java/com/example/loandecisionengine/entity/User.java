@@ -2,7 +2,7 @@ package com.example.loandecisionengine.entity;
 
 public class User {
     private long personalCode;
-    private int segment;
+    private int segment; // Segment and credit modifier are hardcoded below.
 
     public User(long personalCode, int segment) {
         this.personalCode = personalCode;
@@ -25,10 +25,10 @@ public class User {
         this.segment = segment;
     }
 
-    public double getCreditModifier(){
+    public double getCreditModifier() {
         if (segment == 1) return 100;
         else if (segment == 2) return 300;
         else if (segment == 3) return 1000;
-        else return -1;
+        else return 0;
     }
 }
