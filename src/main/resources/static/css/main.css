@@ -1,10 +1,27 @@
 @charset "utf-8";
 *{
     /*--blue: #6BE3DE;*/
-    --blue: rgba(43,0,85,0.7);
+    --blue: rgb(43 0 85);
     --red: #E68682;
-    --green: #4cd14c;
+    --green: #1E6D75;
+    --letters: #FAF8F7;
     font-family: optima, sans-serif;
+}
+h1{
+    margin-left: 5%;
+    margin-top: 5%;
+}
+@keyframes my-move {
+    from {bottom: 330px; z-index: 0;}
+    to {bottom: 0px; background-color: var(--green); z-index: 0;}
+}
+@keyframes my-move-new-loan {
+    from {bottom: 330px; z-index: -1; opacity: 100%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        display: block; color: var(--letters)}
+    to {bottom: 0px; background-color: #10755C; z-index: -1;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        display: block; opacity: 100%; color: var(--letters)}
 }
 input{
     box-sizing: border-box;
@@ -27,8 +44,14 @@ input{
     transition: background-color 70ms cubic-bezier(.2,0,.38,.9),outline 70ms cubic-bezier(.2,0,.38,.9);
     margin-right: 7px;
 }
+.button:hover {
+    bottom: 2px;
+    box-shadow: 1vh 1vh black, rgb(0 0 0 / 30%) 0px 4px 9px -3px, rgb(0 0 0 / 20%) 0px -3px 0px inset;
+    transition: 0.7s;
+}
 body{
     background-color: #FAF8F7;
+    font-size: x-large;
 }
 .container {
     margin-left: 5%;
@@ -38,6 +61,9 @@ body{
     flex-direction: column;
     flex-wrap: wrap;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    z-index: -99;
+    min-height: 680px;
+    overflow: hidden;
 
 }
 .input-container{
@@ -51,43 +77,81 @@ body{
 }
 .wrapper {
     display: flex;
-    color: #FAF8F7;
+    color: var(--letters);
     margin: 10px;
     flex-direction: column;
 }
+#myRange1 #myRange2{
+    padding: unset;
+}
 .form{
     flex-basis: 40%;
-    box-shadow: 1vh 0vh #459491, rgb(0 0 0 / 30%) 0px 7px 13px 0px, rgb(0 0 0 / 20%) 0px 0px 1px inset
+    z-index: 1;
 }
 .result {
     flex: 3;
     background-color: var(--green);
     padding: 2%;
+    animation: my-move 4s;
+    animation-fill-mode: forwards;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    color: var(--letters);
 }
-@media all and (min-width: 800px) {
+.new-loan{
+    float: right;
+    width: 86%;
+    padding: 2%;
+    margin-left: -1%;
+    margin-right: 5%;
+    animation: my-move-new-loan 3s;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    color:#FAF8F7;
+}
+.possible-amount{
+display: flex;
+flex-direction: column;
+color: var(--letters);
+
+}
+.amount{
+border-radius: 17%;
+padding: 8px;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+width: fit-content;
+}
+@media all and (min-width: 1000px) {
+    body{font-size: initial}
     .wrapper {flex-direction: unset;}
     .personal-code { flex: 3 0px; }
-    #myRange1 { order: 1; flex: 8 }
+    #myRange1 { order: 1; flex: 8; padding: unset }
     #loanAmount    { order: 2; flex: 2 }
-    #myRange2 { order: 3; flex: 8 }
+    #myRange2 { order: 3; flex: 8; padding: unset }
     #loanPeriod  { order: 4; flex: 2 }
     .submit  { order: 5; flex: 3 }
-    .container {flex-direction: row}
+    .container {
+    flex-direction: row;
+    min-height: 340px;
 }
-
-@media all and (min-width:321px) and (max-width: 480px) {
-    .wrapper {
-        display: flex;
-        color: #FAF8F7;
-        margin: 10px;
-        flex-direction: column;
-    }
+@keyframes my-move {
+    from {right: 1300px; z-index: 0;}
+    to {right: 0px; background-color: var(--green); z-index: 0;}
 }
-@media all and (min-width:0px) and (max-width: 320px) {
-    .wrapper {
-        display: flex;
-        color: #FAF8F7;
-        margin: 10px;
-        flex-direction: column;
-    }
+.new-loan{
+    float: right;
+    width: 50%;
+    padding: 2%;
+    animation: my-move-new-loan 3s;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
 }
