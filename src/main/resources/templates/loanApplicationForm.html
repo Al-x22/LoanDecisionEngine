@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Loan Application Form</title>
+    <title id="title">Loan Application Form</title>
     <script type="text/javascript" th:src="@{/js/main.js}"></script>
     <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 <body id="bodyId">
-    <h1>Loan Application</h1>
+    <h1 id="header" class="header">Loan Application</h1>
     <div class="container">
         <form class="form" action="#" th:action="@{/loan}" th:object="${loanApplication}" method="post">
             <div class="input-container">
