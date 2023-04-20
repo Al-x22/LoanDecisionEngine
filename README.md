@@ -22,7 +22,7 @@ Hardcoded Users
 - Repository: Database
    - UserExamples: Hardcoded Users. Four in total, one for each segment required.
 - Service: Implementation of Services
-   - GenerateLoanApplicationResult: Where Decision Engine is implemented. Input a LoanApplication. Output a LoanApplicationResult
+   - LoanEngine: Where Decision Engine is implemented. Input a LoanApplication. Output a LoanApplicationResult
 - Resources: Web design
   - CSS: main.css 
   - JS: main.js

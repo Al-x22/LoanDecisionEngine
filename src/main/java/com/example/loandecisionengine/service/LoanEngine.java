@@ -7,7 +7,7 @@ import com.example.loandecisionengine.repository.UserExamples;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GenerateLoanApplicationResult {
+public class LoanEngine {
 
     public LoanApplicationResult generateLoanApplicationResult(LoanApplication loanApplication) {
 
