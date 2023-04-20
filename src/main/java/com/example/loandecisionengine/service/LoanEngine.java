@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoanEngine {
 
+    private int loanAmount;
+    private double maxLoanAmount;
+    private int loanPeriod;
+
     public LoanApplicationResult generateLoanApplicationResult(LoanApplication loanApplication) {
 
         long personalCode = loanApplication.getPersonalCode();
-        int loanAmount = loanApplication.getLoanAmount();
-        int loanPeriod = loanApplication.getLoanPeriod();
+        loanAmount = loanApplication.getLoanAmount();
+        loanPeriod = loanApplication.getLoanPeriod();
 
         User user = new UserExamples().getUserByPersonalCode(personalCode);
 
@@ -24,30 +28,42 @@ public class LoanEngine {
             return new LoanApplicationResult(false, "User is in debt.");
         }
 
-        // By ordering the given algorithm, it is possible to obtain the max amount of money
-        // that can be given in the loanPeriod. This is possible because the max amount of money that can be obtained
-        // is given when the credit score is 1, or the closest to 1 as possible from positive numbers.
-        // By replacing credit score for 1 in the algorithm and solving for the loanAmount we will get the maximum loan amount.
-
         // If the max loan amount surpasses the requested amount, the max loan is returned with positive decision.
         // Else loan Period increases by 1 until it finds a suitable maxLoan bigger that requested Loan.
         double creditModifier = user.getCreditModifier();
         double originalMaxLoanAmount = (creditModifier * loanPeriod);
-        double maxLoanAmount = originalMaxLoanAmount;
+        maxLoanAmount = originalMaxLoanAmount;
 
+        if (!obtainAcceptableMaxLoanAmount(creditModifier)) {
+            return new LoanApplicationResult(false,
+                    0, "No acceptable loan can be generated.");
+        }
+
+        originalMaxLoanAmount = putLoanInsideProperLimits(originalMaxLoanAmount);
+        maxLoanAmount = putLoanInsideProperLimits(maxLoanAmount);
+
+        return new LoanApplicationResult(true, (int) originalMaxLoanAmount, (int) maxLoanAmount, loanPeriod,
+                "Suitable Loan Found", loanApplication);
+    }
+
+    public boolean obtainAcceptableMaxLoanAmount (double creditModifier){
         while (maxLoanAmount < loanAmount) {
-            if (loanPeriod >= 64) {
-                return new LoanApplicationResult(false,
-                        0, "No acceptable loan can be generated.");
+            if (checkLoanPeriodIsOutsideProperLimits(loanPeriod)) {
+                return false;
             }
             loanPeriod++;
             maxLoanAmount = (creditModifier * loanPeriod);
         }
-        originalMaxLoanAmount = (originalMaxLoanAmount < 2000) ? 0 : originalMaxLoanAmount;
-        originalMaxLoanAmount = (Math.min(10000, originalMaxLoanAmount));
-        maxLoanAmount = (Math.min(10000, maxLoanAmount));
+        return true;
+    }
 
-        return new LoanApplicationResult(true, (int) originalMaxLoanAmount, (int) maxLoanAmount, loanPeriod,
-                "Suitable Loan Found", loanApplication);
+    public double putLoanInsideProperLimits(double maxLoanAmount){
+        maxLoanAmount = (maxLoanAmount < 2000) ? 0 : maxLoanAmount;
+        maxLoanAmount = (Math.min(10000, maxLoanAmount));
+        return maxLoanAmount;
+    }
+
+    public boolean checkLoanPeriodIsOutsideProperLimits (int loanPeriod) {
+        return (loanPeriod >= 64);
     }
 }
